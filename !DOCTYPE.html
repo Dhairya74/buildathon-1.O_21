@@ -204,3 +204,63 @@
             color: #667eea;
             margin-bottom: 10px;
         }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤟 Sign Language Learning Platform</h1>
+            <p class="subtitle">Learn and Convert Text to Sign Language</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('converter')">Text to Sign Converter</button>
+            <button class="tab-btn" onclick="showTab('alphabet')">Sign Alphabet</button>
+            <button class="tab-btn" onclick="showTab('words')">Common Words</button>
+            <button class="tab-btn" onclick="showTab('about')">About</button>
+        </div>
+        
+        <!-- Converter Tab -->
+        <div id="converter" class="tab-content active">
+            <div class="converter-section">
+                <h2>Text to Sign Language Converter</h2>
+                
+                <div class="language-select">
+                    <label for="language">Select Language:</label>
+                    <select id="language">
+                        <option value="english">English</option>
+                        <option value="gujarati">ગુજરાતી (Gujarati)</option>
+                        <option value="hindi">हिंदी (Hindi)</option>
+                    </select>
+                </div>
+                
+                <label for="textInput">Enter text to convert:</label>
+                <textarea id="textInput" placeholder="Type your message here..."></textarea>
+                
+                <button onclick="convertToSign()">Convert to Signs 🤟</button>
+                
+                <div class="output-box">
+                    <h3>Sign Output:</h3>
+                    <div id="signOutput" class="sign-output">Your signs will appear here...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alphabet Tab -->
+        <div id="alphabet" class="tab-content">
+            <div class="learning-section">
+                <h2>Sign Language Alphabet</h2>
+                <div id="alphabetGrid" class="alphabet-grid"></div>
+            </div>
+        </div>
+        
+        <!-- Words Tab -->
+
+        <div id="words" class="tab-content">
+            <div class="learning-section">
+                <h2>Common Sign Language Words</h2>
+                <div id="wordsGrid" class="alphabet-grid"></div>
+            </div>
+        </div>
+        
