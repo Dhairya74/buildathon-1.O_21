@@ -263,4 +263,73 @@
                 <div id="wordsGrid" class="alphabet-grid"></div>
             </div>
         </div>
+
+        <!-- About Tab -->
+        <div id="about" class="tab-content">
+            <div class="learning-section">
+                <h2>About This Platform</h2>
+                <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 20px;">
+                    This platform helps deaf and mute individuals learn and communicate using sign language. 
+                    Our mission is to make communication accessible to everyone.
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Text Conversion</div>
+                        <p>Convert any text into sign language symbols instantly</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔤</div>
+                        <div class="feature-title">Learn Alphabet</div>
+                        <p>Master the sign language alphabet at your own pace</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-title">Multiple Languages</div>
+                        <p>Support for English, Gujarati, and Hindi</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <div class="feature-title">Easy to Use</div>
+                        <p>Simple interface designed for everyone</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sign language dictionaries
+        const signDictionary = {
+            english: {
+                // Alphabet
+                'a': '✊', 'b': '🖐', 'c': '👌', 'd': '☝️', 'e': '✋',
+                'f': '👆', 'g': '👇', 'h': '🤞', 'i': '🤙', 'j': '🤘',
+                'k': '✌️', 'l': '👍', 'm': '✊', 'n': '👊', 'o': '👌',
+                'p': '☝️', 'q': '👇', 'r': '🤞', 's': '✊', 't': '👍',
+                'u': '✌️', 'v': '✌️', 'w': '🤟', 'x': '☝️', 'y': '🤙',
+                'z': '👉',
+                // Common words
+                'hello': '👋', 'hi': '👋', 'bye': '👋', 'goodbye': '👋',
+                'thank you': '🙏', 'thanks': '🙏', 'please': '🙏',
+                'yes': '👍', 'no': '👎', 'ok': '👌', 'okay': '👌',
+                'help': '🆘', 'sorry': '😔', 'love': '❤️',
+                'good': '👍', 'bad': '👎', 'happy': '😊', 'sad': '😢'
+            },
+            gujarati: {
+                'હેલો': '👋', 'નમસ્તે': '🙏', 'સહાય': '🆘',
+                'હા': '👍', 'ના': '👎', 'આભાર': '🙏',
+                'માફ કરશો': '😔', 'પ્રેમ': '❤️', 'સારું': '👍'
+            },
+            hindi: {
+                'नमस्ते': '🙏', 'हेलो': '👋', 'सहायता': '🆘',
+                'हाँ': '👍', 'नहीं': '👎', 'धन्यवाद': '🙏',
+                'माफ़ करें': '😔', 'प्यार': '❤️', 'अच्छा': '👍'
+            }
+        };
+        
         
