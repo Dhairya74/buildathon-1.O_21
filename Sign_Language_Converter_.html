@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .converter-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .language-select {
+            margin-bottom: 20px;
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .output-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+            min-height: 100px;
+            border: 2px solid #667eea;
+        }
+        
+        .sign-output {
+            font-size: 3em;
+            line-height: 1.5;
+            text-align: center;
+        }
+        
+        .alphabet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sign-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .sign-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .sign-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .sign-letter {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .learning-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤟 Sign Language Learning Platform</h1>
+            <p class="subtitle">Learn and Convert Text to Sign Language</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('converter')">Text to Sign Converter</button>
+            <button class="tab-btn" onclick="showTab('alphabet')">Sign Alphabet</button>
+            <button class="tab-btn" onclick="showTab('words')">Common Words</button>
+            <button class="tab-btn" onclick="showTab('about')">About</button>
+        </div>
+        
+        <!-- Converter Tab -->
+        <div id="converter" class="tab-content active">
+            <div class="converter-section">
+                <h2>Text to Sign Language Converter</h2>
+                
+                <div class="language-select">
+                    <label for="language">Select Language:</label>
+                    <select id="language">
+                        <option value="english">English</option>
+                        <option value="gujarati">ગુજરાતી (Gujarati)</option>
+                        <option value="hindi">हिंदी (Hindi)</option>
+                    </select>
+                </div>
+                
+                <label for="textInput">Enter text to convert:</label>
+                <textarea id="textInput" placeholder="Type your message here..."></textarea>
+                
+                <button onclick="convertToSign()">Convert to Signs 🤟</button>
+                
+                <div class="output-box">
+                    <h3>Sign Output:</h3>
+                    <div id="signOutput" class="sign-output">Your signs will appear here...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alphabet Tab -->
+        <div id="alphabet" class="tab-content">
+            <div class="learning-section">
+                <h2>Sign Language Alphabet</h2>
+                <div id="alphabetGrid" class="alphabet-grid"></div>
+            </div>
+        </div>
+        
+        <!-- Words Tab -->
+        <div id="words" class="tab-content">
+            <div class="learning-section">
+                <h2>Common Sign Language Words</h2>
+                <div id="wordsGrid" class="alphabet-grid"></div>
+            </div>
+        </div>
+        
+        <!-- About Tab -->
+        <div id="about" class="tab-content">
+            <div class="learning-section">
+                <h2>About This Platform</h2>
+                <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 20px;">
+                    This platform helps deaf and mute individuals learn and communicate using sign language. 
+                    Our mission is to make communication accessible to everyone.
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Text Conversion</div>
+                        <p>Convert any text into sign language symbols instantly</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔤</div>
+                        <div class="feature-title">Learn Alphabet</div>
+                        <p>Master the sign language alphabet at your own pace</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-title">Multiple Languages</div>
+                        <p>Support for English, Gujarati, and Hindi</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <div class="feature-title">Easy to Use</div>
+                        <p>Simple interface designed for everyone</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sign language dictionaries
+        const signDictionary = {
+            english: {
+                // Alphabet
+                'a': '✊', 'b': '🖐', 'c': '👌', 'd': '☝️', 'e': '✋',
+                'f': '👆', 'g': '👇', 'h': '🤞', 'i': '🤙', 'j': '🤘',
+                'k': '✌️', 'l': '👍', 'm': '✊', 'n': '👊', 'o': '👌',
+                'p': '☝️', 'q': '👇', 'r': '🤞', 's': '✊', 't': '👍',
+                'u': '✌️', 'v': '🖖', 'w': '🤟', 'x': '☝️', 'y': '🤙',
+                'z': '👉',
+                // Common words
+                'hello': '👋', 'hi': '👋', 'bye': '👋', 'goodbye': '👋',
+                'thank you': '🙏', 'thanks': '🙏', 'please': '🙏',
+                'yes': '👍', 'no': '👎', 'ok': '👌', 'okay': '👌',
+                'help': '🆘', 'sorry': '😔', 'love': '❤️',
+                'good': '👍', 'bad': '👎', 'happy': '😊', 'sad': '😢'
+            },
+            gujarati: {
+                'હેલો': '👋', 'નમસ્તે': '🙏', 'સહાય': '🆘',
+                'હા': '👍', 'ના': '👎', 'આભાર': '🙏',
+                'માફ કરશો': '😔', 'પ્રેમ': '❤️', 'સારું': '👍'
+            },
+            hindi: {
+                'नमस्ते': '🙏', 'हेलो': '👋', 'सहायता': '🆘',
+                'हाँ': '👍', 'नहीं': '👎', 'धन्यवाद': '🙏',
+                'माफ़ करें': '😔', 'प्यार': '❤️', 'अच्छा': '👍'
+            }
+        };
+        
+        // Tab switching
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            btns.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Initialize alphabet/words grids when switching to those tabs
+            if (tabName === 'alphabet') {
+                displayAlphabet();
+            } else if (tabName === 'words') {
+                displayCommonWords();
+            }
+        }
+        
+        // Convert text to signs
+        function convertToSign() {
+            const text = document.getElementById('textInput').value.toLowerCase();
+            const language = document.getElementById('language').value;
+            const output = document.getElementById('signOutput');
+            
+            if (!text.trim()) {
+                output.innerHTML = 'Please enter some text first!';
+                return;
+            }
+            
+            let result = '';
+            const dict = signDictionary[language];
+            
+            // Try to match whole phrases/words first
+            const words = text.split(' ');
+            
+            for (let word of words) {
+                word = word.trim();
+                if (dict[word]) {
+                    result += dict[word] + ' ';
+                } else {
+                    // Convert letter by letter for English
+                    if (language === 'english') {
+                        for (let letter of word) {
+                            if (dict[letter]) {
+                                result += dict[letter];
+                            } else if (letter === ' ') {
+                                result += '   ';
+                            } else {
+                                result += letter;
+                            }
+                        }
+                    } else {
+                        result += word;
+                    }
+                    result += ' ';
+                }
+            }
+            
+            output.innerHTML = result || 'No signs available for this text';
+        }
+        
+        // Display alphabet
+        function displayAlphabet() {
+            const grid = document.getElementById('alphabetGrid');
+            grid.innerHTML = '';
+            
+            const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+            const dict = signDictionary.english;
+            
+            alphabet.forEach(letter => {
+                const card = document.createElement('div');
+                card.className = 'sign-card';
+                card.innerHTML = `
+                    <div class="sign-emoji">${dict[letter]}</div>
+                    <div class="sign-letter">${letter.toUpperCase()}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // Display common words
+        function displayCommonWords() {
+            const grid = document.getElementById('wordsGrid');
+            grid.innerHTML = '';
+            
+            const commonWords = {
+                'hello': '👋', 'thank you': '🙏', 'yes': '👍', 
+                'no': '👎', 'help': '🆘', 'sorry': '😔',
+                'love': '❤️', 'good': '👍', 'bad': '👎',
+                'happy': '😊', 'sad': '😢', 'ok': '👌'
+            };
+            
+            Object.entries(commonWords).forEach(([word, sign]) => {
+                const card = document.createElement('div');
+                card.className = 'sign-card';
+                card.innerHTML = `
+                    <div class="sign-emoji">${sign}</div>
+                    <div class="sign-letter">${word.toUpperCase()}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // Initialize on load
+        displayAlphabet();
+    </script>
+</body>
+</html>
